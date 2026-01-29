@@ -1,0 +1,4 @@
+- [x] Integrate Firebase Configuration
+- [x] Set up Authentication (Email/Password, Google)
+- [x] Migrate LocalStorage to Firestore
+- [/] Verify Application Functionality

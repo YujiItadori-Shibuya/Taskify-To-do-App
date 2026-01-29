@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskify</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase Compat SDKs (Required for running on file:// protocol without a local server) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Auth Section (Visible when logged out) -->
+        <section id="authSection" class="auth-container">
+            <div class="auth-card">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-square-check"></i>
+                    </div>
+                    <h1>Taskify</h1>
+                </div>
+                <p class="tagline">Sign in to manage your tasks</p>
+
+                <div class="auth-form">
+                    <input type="email" id="emailInput" placeholder="Email address" />
+                    <input type="password" id="passwordInput" placeholder="Password" />
+                    <button id="emailSignInBtn" class="btn-primary">Sign In</button>
+                    <button id="emailSignUpBtn" class="btn-secondary">Create Account</button>
+
+                    <div class="divider"><span>OR</span></div>
+
+                    <button id="googleSignInBtn" class="btn-google">
+                        <i class="fa-brands fa-google"></i> Continue with Google
+                    </button>
+                </div>
+                <p id="authError" class="error-msg"></p>
+            </div>
+        </section>
+
+        <!-- Main App Content (Hidden by default) -->
+        <main id="appSection" style="display: none;">
+            <!-- Header -->
+            <header>
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-square-check"></i>
+                    </div>
+                    <h1>Taskify</h1>
+                </div>
+
+                <div class="user-profile">
+                    <span id="userEmail"></span>
+                    <button id="logoutBtn" class="btn-sm">Logout</button>
+                </div>
+            </header>
+
+            <section class="title-section">
+                <h2>My Tasks</h2>
+                <p>Manage your daily tasks and stay productive</p>
+            </section>
+
+            <!-- Input Section -->
+            <section class="add-task-container">
+                <input type="text" id="taskInput" placeholder="Add a new task..." aria-label="Add a new task">
+
+                <div class="controls-wrapper">
+                    <div class="custom-select">
+                        <select id="categorySelect" aria-label="Select Category">
+                            <option value="Personal">Personal</option>
+                            <option value="Work">Work</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Health">Health</option>
+                            <option value="Education">Education</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+
+                    <button id="addTaskBtn">
+                        <i class="fa-solid fa-plus"></i> Add Task
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filter Controls -->
+            <section class="filter-section">
+                <div class="filter-label">
+                    <i class="fa-solid fa-bars-staggered"></i> Filter tasks
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fa-solid fa-layer-group"></i> All <span class="count" id="countAll">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fa-solid fa-circle"></i> Active <span class="count" id="countActive">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fa-solid fa-circle-check"></i> Completed <span class="count"
+                            id="countCompleted">0</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Task List -->
+            <div class="task-list" id="taskList">
+                <!-- Tasks will be injected here by JS -->
+            </div>
+            <!-- Empty State (Hidden by default) -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>No tasks found. Add one above!</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Main Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
